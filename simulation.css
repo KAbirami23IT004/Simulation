@@ -1,0 +1,12 @@
+/* simulation.css
+   Template styles for simulations
+   - Expects CSS variables from base-template.html
+   - Add simulation-specific styles below
+*/
+
+.sim-root {
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  color: var(--color-text);
+}
