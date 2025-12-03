@@ -1,6 +1,127 @@
-<!-- simulation.html -->
-<!-- Template: Add your simulation markup inside .sim-root -->
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics: Force & Laws of Motion</title>
+    <link rel="stylesheet" href="simulation.css">
+    <style>
+        :root {
+            --color-primary: #0078ff;
+            --color-secondary: #ff5722;
+            --color-text: #2d3748;
+            --color-background: #f7fafc;
+            --color-card: #ffffff;
+            --color-border: #e2e8f0;
+        }
+        [data-theme="dark"] {
+            --color-primary: #63b3ed;
+            --color-secondary: #ff9800;
+            --color-text: #e2e8f0;
+            --color-background: #1a202c;
+            --color-card: #2d3748;
+            --color-border: #4a5568;
+        }
+        body { font-family: sans-serif; background: var(--color-background); color: var(--color-text); padding: 20px; }
+    </style>
+</head>
+<body>
+    <div class="sim-root" id="sim-root">
+      <header class="sim-header">
+        <h1>Physics: Force & Laws of Motion</h1>
+        <div class="hook-banner">
+          An object's acceleration is determined by the net force acting on it and its mass, forming the foundation of classical mechanics.
+        </div>
+      </header>
+      <main class="sim-main">
+        <section class="left-pane">
 
-<div data-sim-root id="sim-root" class="sim-root">
-  <!-- Add simulation content here -->
-</div>
+          <nav class="scene-selector" aria-label="Scene selection">
+            <button class="scene-btn active" data-scene="1"><span class="icon">🚀</span> <span class="label">Newton’s Second Law: F = ma</span></button>
+            <button class="scene-btn" data-scene="2"><span class="icon">⚖️</span> <span class="label">Balanced Forces & Newton’s First Law</span></button>
+            <button class="scene-btn" data-scene="3"><span class="icon">🤚</span> <span class="label">Friction & Free-Body Diagrams</span></button>
+            <button class="scene-btn" data-scene="4"><span class="icon">📐</span> <span class="label">Inclined Plane & Components</span></button>
+            <button class="scene-btn" data-scene="5"><span class="icon">⚡️</span> <span class="label">Work, Energy & Momentum</span></button>
+          </nav>
+
+          <div class="canvas-wrapper">
+            <div id="sim-canvas" class="canvas">
+              <div id="scene-stage">
+                  </div>
+              <div class="rate-monitor">
+                <div class="monitor-label">Force Meter</div>
+                <div class="monitor-value"><span id="out-k-val">0.0</span> <span id="out-k-unit">N</span></div>
+              </div>
+            </div>
+          </div>
+
+          <section class="control-panel">
+            <div class="control-grid">
+
+              <div class="control-group">
+                <label class="lbl-force">Net Force (<span id="val-force">100</span> N)</label>
+                <input type="range" id="inp-force" min="0" max="500" step="10" value="100" class="slider-force">
+              </div>
+
+              <div class="control-group">
+                <label class="lbl-mass">Mass (<span id="val-mass">50</span> kg)</label>
+                <input type="range" id="inp-mass" min="10" max="200" step="5" value="50" class="slider-mass">
+              </div>
+
+              <div class="control-group">
+                <label class="lbl-friction">Surface / Friction (μ_k: <span id="val-friction">0.1</span>)</label>
+                <input type="range" id="inp-friction" min="0" max="0.5" step="0.05" value="0.1" class="slider-friction">
+              </div>
+
+              <div class="control-group">
+                <label class="lbl-angle">Applied Force Angle (<span id="val-angle">0</span>°)</label>
+                <input type="range" id="inp-angle" min="-45" max="45" step="5" value="0" class="slider-angle">
+              </div>
+
+            </div>
+
+            <div class="action-bar">
+              <div class="btn-group">
+                <button id="btn-run" class="primary-btn">Run Simulation</button>
+                <button id="btn-pause" disabled>Pause</button>
+                <button id="btn-reset">Reset</button>
+              </div>
+              <div class="readouts">
+                <div class="readout-box">
+                  <span class="label">Acceleration (m/s²)</span>
+                  <span id="out-acceleration" class="value pulse-target">0.00</span>
+                </div>
+                <div class="readout-box">
+                  <span class="label">Work & Energy (J)</span>
+                  <span id="out-work-energy" class="value pulse-target">--</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <aside class="right-pane">
+          <div class="tabs-section">
+            <div class="tabs">
+              <button class="tab-btn active" data-tab="visual">Visual</button>
+              <button class="tab-btn" data-tab="analogy">Analogy</button>
+              <button class="tab-btn" data-tab="cause">Cause</button>
+              <button class="tab-btn" data-tab="model">Model</button>
+              <button class="tab-btn" data-tab="fix">Fix</button>
+            </div>
+            <div id="tab-content" class="tab-content">
+                </div>
+          </div>
+          <div class="lab-guide">
+            <div class="guide-header">
+              <span class="guide-icon">🧪</span>
+              <h4>Lab Challenges</h4>
+            </div>
+            <div id="guide-content" class="guide-content"></div>
+          </div>
+        </aside>
+      </main>
+    </div>
+    <script src="simulation.js"></script>
+</body>
+</html>
