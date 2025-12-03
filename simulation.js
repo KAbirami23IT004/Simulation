@@ -10,7 +10,35 @@
 
   // LAB CHALLENGES (Bloom-aligned)
   const LAB_CHALLENGES = {
-    all: [
+    1: [
+        { level: 'observe', tag: 'OBSERVE', text: 'Observe how increasing net force increases acceleration on the v–t graph.' },
+        { level: 'compare', tag: 'COMPARE', text: 'Compare motion with and without friction to see how friction reduces net acceleration.' },
+        { level: 'experiment', tag: 'EXPERIMENT', text: 'Use sliders to achieve zero net force and verify constant velocity motion.' },
+        { level: 'analyze', tag: 'ANALYZE', text: 'Given mass and force data, compute acceleration and determine whether friction is present.' },
+        { level: 'challenge', tag: 'CHALLENGE', text: 'Design a motion scenario where the block gains the same KE with two different combinations of force and distance.' }
+    ],
+    2: [
+        { level: 'observe', tag: 'OBSERVE', text: 'Observe how increasing net force increases acceleration on the v–t graph.' },
+        { level: 'compare', tag: 'COMPARE', text: 'Compare motion with and without friction to see how friction reduces net acceleration.' },
+        { level: 'experiment', tag: 'EXPERIMENT', text: 'Use sliders to achieve zero net force and verify constant velocity motion.' },
+        { level: 'analyze', tag: 'ANALYZE', text: 'Given mass and force data, compute acceleration and determine whether friction is present.' },
+        { level: 'challenge', tag: 'CHALLENGE', text: 'Design a motion scenario where the block gains the same KE with two different combinations of force and distance.' }
+    ],
+    3: [
+        { level: 'observe', tag: 'OBSERVE', text: 'Observe how increasing net force increases acceleration on the v–t graph.' },
+        { level: 'compare', tag: 'COMPARE', text: 'Compare motion with and without friction to see how friction reduces net acceleration.' },
+        { level: 'experiment', tag: 'EXPERIMENT', text: 'Use sliders to achieve zero net force and verify constant velocity motion.' },
+        { level: 'analyze', tag: 'ANALYZE', text: 'Given mass and force data, compute acceleration and determine whether friction is present.' },
+        { level: 'challenge', tag: 'CHALLENGE', text: 'Design a motion scenario where the block gains the same KE with two different combinations of force and distance.' }
+    ],
+    4: [
+        { level: 'observe', tag: 'OBSERVE', text: 'Observe how increasing net force increases acceleration on the v–t graph.' },
+        { level: 'compare', tag: 'COMPARE', text: 'Compare motion with and without friction to see how friction reduces net acceleration.' },
+        { level: 'experiment', tag: 'EXPERIMENT', text: 'Use sliders to achieve zero net force and verify constant velocity motion.' },
+        { level: 'analyze', tag: 'ANALYZE', text: 'Given mass and force data, compute acceleration and determine whether friction is present.' },
+        { level: 'challenge', tag: 'CHALLENGE', text: 'Design a motion scenario where the block gains the same KE with two different combinations of force and distance.' }
+    ],
+    5: [
         { level: 'observe', tag: 'OBSERVE', text: 'Observe how increasing net force increases acceleration on the v–t graph.' },
         { level: 'compare', tag: 'COMPARE', text: 'Compare motion with and without friction to see how friction reduces net acceleration.' },
         { level: 'experiment', tag: 'EXPERIMENT', text: 'Use sliders to achieve zero net force and verify constant velocity motion.' },
@@ -23,39 +51,35 @@
     1: { name: "Newton’s Second Law: F = ma", svg: `<svg class="sim-svg" viewBox="0 0 200 100"><g class="scene-1-group"><rect class="surface" x="0" y="80" width="200" height="20" fill="#ccc"/><rect class="block" id="block" x="20" y="50" width="30" height="30" fill="dodgerblue"/><g id="force-arrows"></g><g id="graphs"></g></g></svg>` },
     2: { name: "Balanced Forces & Newton’s First Law", svg: `<svg class="sim-svg" viewBox="0 0 200 100"><g class="scene-2-group"><rect class="surface" x="0" y="80" width="200" height="20" fill="#ccc"/><rect class="block" id="block" x="20" y="50" width="30" height="30" fill="dodgerblue"/><g id="force-arrows"></g></g></svg>` },
     3: { name: "Friction & Free-Body Diagrams", svg: `<svg class="sim-svg" viewBox="0 0 200 100"><g class="scene-3-group"><rect class="surface" x="0" y="80" width="200" height="20" fill="#ccc"/><rect class="block" id="block" x="20" y="50" width="30" height="30" fill="dodgerblue"/><g id="force-arrows"></g></g></svg>` },
-    4: { name: "Inclined Plane & Components", svg: `<svg class="sim-svg" viewBox="0 0 200 100"><g class="scene-4-group"><path class="surface" d="M0 100 L200 40 L200 100 Z" fill="#ccc"/><g transform="translate(40, 25) rotate(-16.7)"><rect class="block" id="block" y="-10" width="30" height="20" fill="dodgerblue"/></g><g id="force-arrows"></g></g></svg>` },
+    4: { name: "Inclined Plane & Components", svg: `<svg class="sim-svg" viewBox="0 0 200 100"><g class="scene-4-group"><path class="surface" d="M0 100 L200 40 L200 100 Z" fill="#ccc"/><g id="block-container" transform="translate(40, 25) rotate(-16.7)"><rect class="block" id="block" y="-10" width="30" height="20" fill="dodgerblue"/></g><g id="force-arrows"></g></g></svg>` },
     5: { name: "Work, Energy & Momentum", svg: `<svg class="sim-svg" viewBox="0 0 200 100"><g class="scene-5-group"><rect class="surface" x="0" y="80" width="200" height="20" fill="#ccc"/><rect class="block" id="block" x="20" y="50" width="30" height="30" fill="dodgerblue"/><g id="energy-bars"></g></g></svg>` }
   };
 
   const state = {
     scene: 1,
-    netForce: 50,      // inp-temp
-    frictionCoeff: 0.2, // inp-humidity
-    forceAngle: 0,       // inp-wind
-    mass: 20,            // inp-area
-    motionType: 'linear', // inp-liquid
+    netForce: 50,
+    frictionCoeff: 0.2,
+    forceAngle: 0,
+    mass: 20,
+    motionType: 'linear',
     running: false,
     acceleration: 0,
     velocity: 0,
     position: 20,
-    work: 0,
-    kineticEnergy: 0,
-    momentum: 0,
     time: 0
   };
 
   let animFrame;
+  let lastTime = 0;
 
   const els = {
     stage: document.getElementById('scene-stage'),
-    particles: document.getElementById('particle-layer'), // Will be cleared
-    windLayer: document.getElementById('wind-layer'), // Will be cleared
-    hazeLayer: document.getElementById('haze-layer'), // Will be cleared
+    particles: document.getElementById('particle-layer'),
+    windLayer: document.getElementById('wind-layer'),
+    hazeLayer: document.getElementById('haze-layer'),
     tabContent: document.getElementById('tab-content'),
     thermReadout: document.getElementById('therm-val'),
     thermLiquid: document.getElementById('therm-liquid'),
-    chillBadge: document.getElementById('chill-badge'),
-    scopeLens: document.getElementById('scope-lens'),
     guideContent: document.getElementById('guide-content'),
     inpTemp: document.getElementById('inp-temp'),
     valTemp: document.getElementById('val-temp'),
@@ -77,63 +101,45 @@
     const F_app = state.netForce;
     const m = state.mass;
     const mu_k = state.frictionCoeff;
-    const theta_deg = state.forceAngle;
-    const theta_rad = theta_deg * Math.PI / 180;
 
     let F_net = 0;
-    let F_friction = 0;
-    const N = m * G; // Normal force on flat surface
+    const N = m * G;
 
     switch (state.scene) {
-      case 1: // F=ma
-        F_net = F_app;
-        break;
-      case 2: // Balanced forces
-        F_friction = F_app;
-        F_net = F_app - F_friction;
-        break;
-      case 3: // Friction & FBD
-        F_friction = mu_k * N;
-        F_net = F_app - F_friction;
-        break;
-      case 4: // Inclined plane
+      case 1: F_net = F_app; break;
+      case 2: F_net = F_app - F_app; break;
+      case 3: F_net = F_app - (mu_k * N); break;
+      case 4:
         const angle_incline = 16.7 * Math.PI / 180;
         const F_parallel = m * G * Math.sin(angle_incline);
         const N_incline = m * G * Math.cos(angle_incline);
-        F_friction = mu_k * N_incline;
+        const F_friction = mu_k * N_incline;
         F_net = F_parallel - F_friction;
         break;
-      case 5: // Work-energy
-        F_net = F_app;
-        break;
+      case 5: F_net = F_app; break;
     }
 
-    state.acceleration = F_net / m;
+    state.acceleration = F_net > 0 ? F_net / m : 0;
   }
 
   function updateVisuals() {
-    calculatePhysics();
-
-    // Update readouts
-    els.outEvap.innerText = state.acceleration.toFixed(2);
-    els.outCool.innerText = `${state.netForce.toFixed(1)} N`;
-
-    // Update slider values
     els.valTemp.innerText = state.netForce;
     els.valHum.innerText = state.frictionCoeff;
     els.valWind.innerText = state.forceAngle;
     els.valArea.innerText = state.mass;
 
-    // Update Force Meter
     const forcePercent = (state.netForce / 100) * 100;
     els.thermLiquid.style.height = `${forcePercent}%`;
     els.thermReadout.innerText = `${Math.round(state.netForce)} N`;
 
-    updateTabs();
-
     const block = document.getElementById('block');
     if (block) {
-      block.style.transform = `translateX(${state.position}px)`;
+      if (state.scene === 4) {
+        const blockContainer = document.getElementById('block-container');
+        blockContainer.setAttribute('transform', `translate(${state.position}, ${state.position * Math.tan(-16.7 * Math.PI / 180)}) rotate(-16.7)`);
+      } else {
+        block.style.transform = `translateX(${state.position}px)`;
+      }
     }
   }
 
@@ -143,7 +149,7 @@
     els.windLayer.innerHTML = '';
     els.hazeLayer.innerHTML = '';
 
-    const guides = LAB_CHALLENGES['all'] || [];
+    const guides = LAB_CHALLENGES[state.scene] || [];
     els.guideContent.innerHTML = `<ul class="guide-list">
       ${guides.map(g => `
         <li class="guide-item">
@@ -153,12 +159,12 @@
       `).join('')}
     </ul>`;
 
+    updateTabs();
     updateVisuals();
   }
 
   function updateTabs() {
     const activeTab = document.querySelector('.tab-btn.active').dataset.tab;
-    let content = "";
     const mst = {
         visual: `<h4>Visual</h4><ul>
             <li>Scene 1: Show a block accelerating when a net force acts, with velocity–time graph increasing in slope.</li>
@@ -196,27 +202,29 @@
             <li>Momentum is not the same as force; momentum depends on velocity, force depends on acceleration.</li>
         </ul>`
     };
-    content = mst[activeTab];
-    els.tabContent.innerHTML = content;
+    els.tabContent.innerHTML = mst[activeTab] || '';
   }
 
   function animLoop(timestamp) {
     if (!state.running) return;
 
-    const dt = 1/60; // time step
-    state.time += dt;
+    if (lastTime === 0) lastTime = timestamp;
+    const dt = (timestamp - lastTime) / 1000;
+    lastTime = timestamp;
 
     calculatePhysics();
 
     state.velocity += state.acceleration * dt;
     state.position += state.velocity * dt;
 
-    if (state.position > 200) { // reset if off-screen
+    if (state.position > 170) {
         state.position = 20;
         state.velocity = 0;
     }
 
     updateVisuals();
+    els.outEvap.innerText = state.acceleration.toFixed(2);
+    els.outCool.innerText = (0.5 * state.mass * state.velocity**2).toFixed(1) + ' J';
 
     animFrame = requestAnimationFrame(animLoop);
   }
@@ -231,10 +239,8 @@
     state.acceleration = 0;
     state.velocity = 0;
     state.position = 20;
-    state.work = 0;
-    state.kineticEnergy = 0;
-    state.momentum = 0;
     state.time = 0;
+    lastTime = 0;
 
     els.inpTemp.value = state.netForce;
     els.inpHumidity.value = state.frictionCoeff;
@@ -251,12 +257,10 @@
   }
 
   function init() {
-    // Event Listeners
-    els.inpTemp.addEventListener('input', (e) => { state.netForce = parseFloat(e.target.value); updateVisuals(); });
-    els.inpHumidity.addEventListener('input', (e) => { state.frictionCoeff = parseFloat(e.target.value); updateVisuals(); });
-    els.inpWind.addEventListener('input', (e) => { state.forceAngle = parseFloat(e.target.value); updateVisuals(); });
-    els.inpArea.addEventListener('input', (e) => { state.mass = parseFloat(e.target.value); updateVisuals(); });
-    els.inpLiquid.addEventListener('change', (e) => { state.motionType = e.target.value; updateVisuals(); });
+    els.inpTemp.addEventListener('input', (e) => { state.netForce = parseFloat(e.target.value); if (!state.running) updateVisuals(); });
+    els.inpHumidity.addEventListener('input', (e) => { state.frictionCoeff = parseFloat(e.target.value); if (!state.running) updateVisuals(); });
+    els.inpWind.addEventListener('input', (e) => { state.forceAngle = parseFloat(e.target.value); if (!state.running) updateVisuals(); });
+    els.inpArea.addEventListener('input', (e) => { state.mass = parseFloat(e.target.value); if (!state.running) updateVisuals(); });
 
     document.querySelectorAll('.scene-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
@@ -272,7 +276,8 @@
       state.running = true;
       els.btnRun.disabled = true;
       els.btnPause.disabled = false;
-      animLoop();
+      lastTime = 0;
+      animLoop(performance.now());
     });
 
     els.btnPause.addEventListener('click', () => {
@@ -282,9 +287,7 @@
       if(animFrame) cancelAnimationFrame(animFrame);
     });
 
-    els.btnReset.addEventListener('click', () => {
-      resetState();
-    });
+    els.btnReset.addEventListener('click', resetState);
 
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
